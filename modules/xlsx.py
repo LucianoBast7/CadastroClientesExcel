@@ -26,7 +26,7 @@ os.makedirs(caminho_finalizado, exist_ok=True)
 class ConfigXlsx():
     def __init__(self):
         self.arquivos = glob.glob(os.path.join(caminho_input, "*.xlsx"))
-        self.colunas = ["Nome", "Email", "Telefone", "Cidade", "Estado", "Status"]
+        self.colunas = ["Nome", "Email", "Telefone", "Cidade", "Estado"]
 
     def arquivo_existe(self):
         if not self.arquivos:
@@ -48,6 +48,7 @@ class ConfigXlsx():
         try:
             df = pd.read_excel(arquivos[0])
             df.columns = self.colunas
+            df["Status"] = "Pendente"
             shutil.move(arquivos[0], caminho_exportacao_excel)
             return df
         except Exception as e:
